@@ -3,102 +3,163 @@ import PageHeader from "@/components/PageHeader";
 interface Producto {
   nombre: string;
   meta: string;
-  emoji: string;
+  rubro: string;
   disponible: boolean;
-  featured?: boolean;
 }
 
 const PRODUCTOS: Producto[] = [
-  { nombre: "Glifosato 66% SG", meta: "Bidón × 20 kg · Atanor", emoji: "🧪", disponible: true },
-  { nombre: "Atrazina 50% SC", meta: "Bidón × 20 L · Red Surcos", emoji: "🧪", disponible: true },
-  { nombre: "2,4-D Sal Amina 60%", meta: "Bidón × 20 L · Atanor", emoji: "🧪", disponible: false },
-  { nombre: "Acetoclor 90% EC", meta: "Bidón × 20 L · Syngenta", emoji: "🧪", disponible: true },
-  { nombre: "Dicamba 58%", meta: "Bidón × 20 L · Atanor", emoji: "🧪", disponible: true },
-  { nombre: "Metsulfuron Metil 60%", meta: "Bolsa × 1 kg · Atanor", emoji: "🧪", disponible: true },
-  { nombre: "Urea Granel Profertil", meta: "A granel · Profertil", emoji: "🌱", disponible: true, featured: true },
-  { nombre: "MAP Granel Profertil", meta: "A granel · Profertil", emoji: "🌱", disponible: false },
+  { nombre: "Glifosato 66% SG", meta: "Bidón × 20 kg · Atanor", rubro: "HERBICIDAS", disponible: true },
+  { nombre: "Atrazina 50% SC", meta: "Bidón × 20 L · Red Surcos", rubro: "HERBICIDAS", disponible: true },
+  { nombre: "2,4-D Sal Amina 60%", meta: "Bidón × 20 L · Atanor", rubro: "HERBICIDAS", disponible: false },
+  { nombre: "Acetoclor 90% EC", meta: "Bidón × 20 L · Syngenta", rubro: "HERBICIDAS", disponible: true },
+  { nombre: "Dicamba 58%", meta: "Bidón × 20 L · Atanor", rubro: "HERBICIDAS", disponible: true },
+  { nombre: "Metsulfuron Metil 60%", meta: "Bolsa × 1 kg · Atanor", rubro: "HERBICIDAS", disponible: true },
+  { nombre: "Cipermetrina 25%", meta: "Bidón × 20 L · Red Surcos", rubro: "INSECTICIDAS", disponible: true },
+  { nombre: "Clorpirifos 48%", meta: "Bidón × 20 L · Atanor", rubro: "INSECTICIDAS", disponible: true },
+  { nombre: "Lambda Cialotrina 5%", meta: "Bidón × 5 L · Syngenta", rubro: "INSECTICIDAS", disponible: false },
+  { nombre: "Urea Granel Profertil", meta: "A granel · Profertil", rubro: "FERTILIZANTES", disponible: true },
+  { nombre: "MAP Granel Profertil", meta: "A granel · Profertil", rubro: "FERTILIZANTES", disponible: false },
+  { nombre: "DAP Granel Profertil", meta: "A granel · Profertil", rubro: "FERTILIZANTES", disponible: true },
+  { nombre: "Silobolsa 9×60 CGS", meta: "200 µ · 9 pies × 60 m", rubro: "SILOBOLSAS", disponible: true },
 ];
 
+// Cantidades simuladas en carrito
+const CART = [
+  { nombre: "Glifosato 66% SG", qty: 40, unit: "× 20 kg" },
+  { nombre: "Atrazina 50% SC", qty: 20, unit: "× 20 L" },
+  { nombre: "Urea Granel Profertil", qty: 15, unit: "tn" },
+];
+
+const RUBROS = ["HERBICIDAS", "INSECTICIDAS", "FUNGICIDAS", "FERTILIZANTES", "SILOBOLSAS"];
+
 export default function ClienteCatalogo() {
+  const grouped = new Map<string, Producto[]>();
+  for (const p of PRODUCTOS) {
+    if (!grouped.has(p.rubro)) grouped.set(p.rubro, []);
+    grouped.get(p.rubro)!.push(p);
+  }
+
   return (
-    <div className="page">
+    <div className="main">
       <PageHeader
-        title="Vista del cliente"
-        subtitle="MOBILE · CATÁLOGO PÚBLICO"
+        title="Catálogo público"
+        subtitle="VISTA DEL CLIENTE · MOBILE / DESKTOP"
         backHref="/"
         backLabel="← Índice"
       />
 
-      <div className="phone-wrap">
-        <div className="phone">
-          <div className="phone-notch"></div>
-          <div className="phone-status">
-            <span>9:41</span>
-            <span>📶 100%</span>
-          </div>
+      <div className="toolbar">
+        <div className="toolbar-search">
+          <span className="toolbar-search-icon">🔍</span>
+          <input type="text" placeholder="Buscar producto, marca o principio activo…" />
+        </div>
+        <div className="toolbar-filters">
+          <button className="filter-chip active">Todos</button>
+          {RUBROS.map((r) => (
+            <button key={r} className="filter-chip">
+              {r.charAt(0) + r.slice(1).toLowerCase()}
+            </button>
+          ))}
+        </div>
+      </div>
 
-          <div className="phone-content">
-            <div className="app-bar">
-              <div className="app-bar-row">
-                <div className="app-logo">
-                  ACSA
-                  <small>AGRUPACIÓN CAMPONUEVO</small>
-                </div>
-                <button className="app-icon-btn">☰</button>
-              </div>
-              <div className="app-search">
-                <span>🔍</span>
-                <span>Buscar producto, marca o principio activo…</span>
-              </div>
-            </div>
+      <div className="content-grid">
+        {/* TABLA */}
+        <div className="content">
+          <table className="art-table">
+            <thead>
+              <tr>
+                <th>Artículo</th>
+                <th>Presentación</th>
+                <th className="center">Estado</th>
+                <th className="center">Cantidad</th>
+                <th className="center">Acción</th>
+              </tr>
+            </thead>
+            <tbody>
+              {Array.from(grouped.entries()).map(([rubro, items]) => (
+                <>
+                  <tr key={`r-${rubro}`} className="rubro-row">
+                    <td colSpan={5}>
+                      {rubro} ({items.length})
+                    </td>
+                  </tr>
+                  {items.map((p) => {
+                    const inCart = CART.find((c) => c.nombre === p.nombre);
+                    return (
+                      <tr key={p.nombre} className={inCart ? "selected" : ""}>
+                        <td className="article-name">{p.nombre}</td>
+                        <td style={{ color: "var(--muted)", fontSize: "0.72rem" }}>{p.meta}</td>
+                        <td className="center">
+                          {p.disponible ? (
+                            <span className="stock-pill ok">
+                              <span className="dot"></span>Disponible
+                            </span>
+                          ) : (
+                            <span className="stock-pill no">
+                              <span className="dot"></span>Sin stock
+                            </span>
+                          )}
+                        </td>
+                        <td className="center">
+                          <input
+                            type="text"
+                            className={`qty-input ${inCart ? "has-value" : ""}`}
+                            defaultValue={inCart ? String(inCart.qty) : ""}
+                            placeholder="0"
+                          />
+                        </td>
+                        <td className="center">
+                          {p.disponible ? (
+                            <button className="btn-add-row">+ Agregar</button>
+                          ) : (
+                            <button className="btn-cot-row">Cotizar</button>
+                          )}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </>
+              ))}
+            </tbody>
+          </table>
+        </div>
 
-            <div className="chips-row">
-              <span className="chip chip-active">Todos</span>
-              <span className="chip">Herbicidas</span>
-              <span className="chip">Insecticidas</span>
-              <span className="chip">Fungicidas</span>
-              <span className="chip">Fertilizantes</span>
-              <span className="chip">Semillas</span>
-              <span className="chip">Silobolsas</span>
-            </div>
-
-            <div className="section-h">Herbicidas · 12 productos</div>
-
-            {PRODUCTOS.map((p) => (
-              <div
-                key={p.nombre}
-                className={`product-card ${p.featured ? "featured" : ""}`}
-              >
-                <div className="product-thumb">{p.emoji}</div>
-                <div className="product-info">
-                  <div className="product-name">{p.nombre}</div>
-                  <div className="product-meta">{p.meta}</div>
-                  <div className="product-actions">
-                    {p.disponible ? (
-                      <>
-                        <span className="badge-stock badge-stock-ok">
-                          <span className="badge-dot"></span>Disponible
-                        </span>
-                        <button className="btn-add">+</button>
-                      </>
-                    ) : (
-                      <>
-                        <span className="badge-stock badge-stock-no">
-                          <span className="badge-dot"></span>Sin stock — Cotizamos
-                        </span>
-                        <button className="btn-link-text">Cotizar</button>
-                      </>
-                    )}
+        {/* SUMMARY (sidebar navy idéntico al cotizador) */}
+        <div className="summary-col">
+          <div className="summary-card">
+            <h3>Mi lista de cotización</h3>
+            <div className="summary-items">
+              {CART.map((c) => (
+                <div className="summary-item" key={c.nombre}>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div className="summary-item-name">{c.nombre}</div>
+                    <div className="summary-item-qty">
+                      {c.qty} {c.unit}
+                    </div>
                   </div>
+                  <button className="summary-item-remove">×</button>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
 
-            <div className="cart-bar">
-              <span>
-                Mi lista de cotización <span className="badge-count">3</span>
-              </span>
-              <span>Pedir cotización →</span>
+            <div className="srow">
+              <span className="sl">Productos</span>
+              <span className="sv">3</span>
+            </div>
+            <div className="srow">
+              <span className="sl">Sucursal sugerida</span>
+              <span className="sv" style={{ fontSize: "0.78rem" }}>Pigué</span>
+            </div>
+            <div className="srow highlight">
+              <span className="sl">Tiempo de respuesta</span>
+              <span className="sv">&lt; 2 h hábiles</span>
+            </div>
+
+            <button className="summary-cta">Pedir cotización →</button>
+            <div className="summary-note">
+              Los precios los confirma tu vendedor según volumen, plazo y condiciones.
+              Sin compromiso de compra.
             </div>
           </div>
         </div>

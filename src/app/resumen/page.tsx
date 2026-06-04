@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function Resumen() {
   return (
     <>
-      <div className="page" style={{ paddingBottom: 0 }}>
+      <div className="main" style={{ paddingBottom: 0, minHeight: 0 }}>
         <Link
           href="/"
           className="hdr-back"

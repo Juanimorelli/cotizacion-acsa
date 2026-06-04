@@ -2,7 +2,7 @@ import PageHeader from "@/components/PageHeader";
 
 export default function Flujo() {
   return (
-    <div className="page">
+    <div className="main">
       <PageHeader
         title="Flujo end-to-end del pedido"
         subtitle="DESDE LA CONSULTA HASTA LA COTIZACIÓN ENTREGADA"

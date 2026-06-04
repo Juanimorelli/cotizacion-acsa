@@ -2,32 +2,34 @@ import PageHeader from "@/components/PageHeader";
 
 export default function VendedorTablero() {
   return (
-    <div className="page">
+    <div className="main">
       <PageHeader
-        title="Panel comercial · Tablero de pedidos"
-        subtitle="VENDEDOR · DESKTOP"
+        title="Panel comercial · Pedidos pendientes"
+        subtitle="VENDEDOR · TABLERO KANBAN"
         backHref="/"
         backLabel="← Índice"
       />
 
-      <div className="toolbar2">
-        <div className="filter-group">
-          <button className="btn-filter active">Mi cartera</button>
-          <button className="btn-filter">Sin asignar</button>
-          <button className="btn-filter">Mi sucursal</button>
-          <button className="btn-filter">Toda la red</button>
+      <div className="toolbar">
+        <div className="toolbar-search">
+          <span className="toolbar-search-icon">🔍</span>
+          <input type="text" placeholder="Buscar cliente, producto, número…" />
         </div>
-        <div className="filter-group">
-          <button className="btn-filter">Todos los canales</button>
-          <button className="btn-filter">💬 WhatsApp</button>
-          <button className="btn-filter">📷 Instagram</button>
-          <button className="btn-filter">🌐 Web</button>
+        <div className="toolbar-filters">
+          <button className="filter-chip active">Mi cartera</button>
+          <button className="filter-chip">Sin asignar</button>
+          <button className="filter-chip">Mi sucursal</button>
+          <button className="filter-chip">Toda la red</button>
+          <span style={{ width: 1, height: 18, background: "var(--border2)", margin: "0 4px" }}></span>
+          <button className="filter-chip">Todos</button>
+          <button className="filter-chip">💬 WA</button>
+          <button className="filter-chip">📷 IG</button>
+          <button className="filter-chip">🌐 Web</button>
         </div>
-        <div className="search-pill">🔍 Buscar cliente, producto, número…</div>
       </div>
 
       <div className="kanban">
-        {/* Columna 1: Recibido */}
+        {/* Recibido */}
         <div className="kanban-col">
           <div className="kanban-col-h">
             <span>📥 Recibido</span>
@@ -37,7 +39,7 @@ export default function VendedorTablero() {
           <div className="kc urgent">
             <div className="kc-row1">
               <span className="kc-num">#001852</span>
-              <span className="channel-pill channel-wa">💬 WhatsApp</span>
+              <span className="channel-pill channel-wa">💬 WA</span>
             </div>
             <div className="kc-cliente">Estancia Las Tres Marías</div>
             <div className="kc-meta">Trenque Lauquen · Nuevo (prospect)</div>
@@ -54,7 +56,7 @@ export default function VendedorTablero() {
           <div className="kc warn">
             <div className="kc-row1">
               <span className="kc-num">#001851</span>
-              <span className="channel-pill channel-ig">📷 Instagram</span>
+              <span className="channel-pill channel-ig">📷 IG</span>
             </div>
             <div className="kc-cliente">Roberto Suárez</div>
             <div className="kc-meta">Carhué · Asignado a Andrés K.</div>
@@ -87,7 +89,7 @@ export default function VendedorTablero() {
           </div>
         </div>
 
-        {/* Columna 2: En curso */}
+        {/* En curso */}
         <div className="kanban-col">
           <div className="kanban-col-h">
             <span>✋ En curso</span>
@@ -97,7 +99,7 @@ export default function VendedorTablero() {
           <div className="kc">
             <div className="kc-row1">
               <span className="kc-num">#001847</span>
-              <span className="channel-pill channel-wa">💬 WhatsApp</span>
+              <span className="channel-pill channel-wa">💬 WA</span>
             </div>
             <div className="kc-cliente">Don Vicente SA</div>
             <div className="kc-meta">Coronel Suárez · Cliente PROAMIGO</div>
@@ -106,7 +108,7 @@ export default function VendedorTablero() {
               <br />• 50 tn MAP Granel
             </div>
             <div className="kc-footer">
-              <span className="kc-sla">Andrés K. · hace 25 min</span>
+              <span className="kc-sla">Andrés K. · 25 min</span>
               <button className="kc-action">Continuar</button>
             </div>
           </div>
@@ -117,13 +119,13 @@ export default function VendedorTablero() {
               <span className="channel-pill channel-web">🌐 Web</span>
             </div>
             <div className="kc-cliente">Florencia Bories</div>
-            <div className="kc-meta">General Acha · Cliente recurrente</div>
+            <div className="kc-meta">General Acha · Recurrente</div>
             <div className="kc-items">
               • 8 bolsas Metsulfuron 60%
               <br />• 12 bidones 2,4-D
             </div>
             <div className="kc-footer">
-              <span className="kc-sla">Andrés K. · hace 1h 10m</span>
+              <span className="kc-sla">Andrés K. · 1 h 10 m</span>
               <button className="kc-action">Continuar</button>
             </div>
           </div>
@@ -131,7 +133,7 @@ export default function VendedorTablero() {
           <div className="kc">
             <div className="kc-row1">
               <span className="kc-num">#001843</span>
-              <span className="channel-pill channel-ig">📷 Instagram</span>
+              <span className="channel-pill channel-ig">📷 IG</span>
             </div>
             <div className="kc-cliente">Agrop. El Cerrito</div>
             <div className="kc-meta">Macachín · Cliente nuevo</div>
@@ -140,13 +142,13 @@ export default function VendedorTablero() {
               <br />• 4 bidones Clorpirifos
             </div>
             <div className="kc-footer">
-              <span className="kc-sla">Andrés K. · hace 2h</span>
+              <span className="kc-sla">Andrés K. · 2 h</span>
               <button className="kc-action">Continuar</button>
             </div>
           </div>
         </div>
 
-        {/* Columna 3: Cotizado */}
+        {/* Cotizado */}
         <div className="kanban-col">
           <div className="kanban-col-h">
             <span>📤 Cotizado</span>
@@ -160,9 +162,7 @@ export default function VendedorTablero() {
             </div>
             <div className="kc-cliente">Hnos. Martínez SA</div>
             <div className="kc-meta">Pigué · USD 18.450</div>
-            <div className="kc-items ok">
-              ✓ Enviado por WhatsApp ayer 17:30
-            </div>
+            <div className="kc-items ok">✓ Enviado por WhatsApp ayer 17:30</div>
             <div className="kc-footer">
               <span className="kc-sla">Esperando respuesta</span>
               <button className="kc-action info">Reenviar</button>
@@ -176,9 +176,7 @@ export default function VendedorTablero() {
             </div>
             <div className="kc-cliente">Carlos Lerena</div>
             <div className="kc-meta">Maza · USD 6.220</div>
-            <div className="kc-items ok">
-              ✓ Cotización abierta por el cliente
-            </div>
+            <div className="kc-items ok">✓ Cotización abierta por el cliente</div>
             <div className="kc-footer">
               <span className="kc-sla">Visto hace 14 min</span>
               <button className="kc-action info">Ver detalle</button>
@@ -200,7 +198,7 @@ export default function VendedorTablero() {
           </div>
         </div>
 
-        {/* Columna 4: Cerrado */}
+        {/* Cerrado */}
         <div className="kanban-col">
           <div className="kanban-col-h">
             <span>✅ Cerrado</span>

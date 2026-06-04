@@ -3,35 +3,35 @@ import PageHeader from "@/components/PageHeader";
 
 export default function Hub() {
   return (
-    <div className="page">
+    <div className="main">
       <PageHeader
         title="Catálogo Público + Cotización Online"
         subtitle="PROPUESTA · AGRUPACIÓN CAMPONUEVO S.A."
       />
 
-      <div className="panel">
+      <div className="panel-card">
         <div className="intro-callout">
           Set de pantallas navegables para presentar la propuesta antes de
-          aprobarla. Datos de muestra (productos reales del catálogo, clientes
-          ficticios). Para la reunión, imprimí el{" "}
-          <strong>resumen ejecutivo</strong> y mostrá las pantallas en vivo
-          desde acá.
+          aprobarla. Mismo stack y estética que el cotizador interno. Datos de
+          muestra (productos reales del catálogo, clientes ficticios). Para la
+          reunión, imprimí el <strong>resumen ejecutivo</strong> y mostrá las
+          pantallas en vivo desde acá.
         </div>
 
         <div className="section-title">👤 Vista del cliente · mobile</div>
         <div className="cards-grid">
           <Link href="/cliente/catalogo" className="card-link">
-            <span className="pill pill-cliente">Cliente · Mobile</span>
+            <span className="pill pill-cliente">Cliente</span>
             <h3>Catálogo público</h3>
-            <p>Productos con flag &quot;Disponible&quot;, buscador y filtro por rubro. Sin precios visibles.</p>
+            <p>Productos con flag &quot;Disponible&quot;, buscador y filtro por rubro. Sin precios.</p>
           </Link>
           <Link href="/cliente/pedido" className="card-link">
-            <span className="pill pill-cliente">Cliente · Mobile</span>
+            <span className="pill pill-cliente">Cliente</span>
             <h3>Pedir cotización</h3>
             <p>Carrito sin precio + identificación (CUIT, teléfono o prospect).</p>
           </Link>
           <Link href="/cliente/seguimiento" className="card-link">
-            <span className="pill pill-cliente">Cliente · Mobile</span>
+            <span className="pill pill-cliente">Cliente</span>
             <h3>Seguimiento del pedido</h3>
             <p>El cliente ve &quot;Recibido → Asignado a Juan → Cotizado&quot;. Cero ansiedad.</p>
           </Link>
@@ -40,7 +40,7 @@ export default function Hub() {
         <div className="section-title">🧑‍💼 Vista del equipo comercial · desktop</div>
         <div className="cards-grid">
           <Link href="/vendedor" className="card-link">
-            <span className="pill pill-vendedor">Vendedor · Desktop</span>
+            <span className="pill pill-vendedor">Vendedor</span>
             <h3>Tablero Kanban</h3>
             <p>Recibido → En curso → Cotizado → Cerrado. Filtros por cartera y sucursal. SLA visible.</p>
           </Link>
@@ -51,7 +51,7 @@ export default function Hub() {
           <Link href="/flujo" className="card-link">
             <span className="pill pill-doc">Diagrama</span>
             <h3>Flujo end-to-end</h3>
-            <p>Recorrido del pedido desde Web / WhatsApp / Instagram hasta la respuesta al cliente.</p>
+            <p>Recorrido del pedido desde Web / WhatsApp / Instagram hasta la respuesta.</p>
           </Link>
           <Link href="/resumen" className="card-link">
             <span className="pill pill-doc">Imprimible</span>
